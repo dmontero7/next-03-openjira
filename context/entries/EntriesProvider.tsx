@@ -2,6 +2,7 @@ import { FC, PropsWithChildren, useEffect, useReducer } from 'react';
 import { EntriesContext, entriesReducer } from './';
 import { Entry } from '@/interfaces';
 import { entriesApi } from '@/apis';
+import { enqueueSnackbar } from 'notistack';
 
 export interface EntriesState {
     entries: Entry[];
@@ -19,10 +20,20 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
         dispatch({ type: 'Add - entry', payload: data });
     }
 
-    const onUpdateEntry = async ({ _id, description, status }: Entry) => {
+    const onUpdateEntry = async ({ _id, description, status }: Entry, showShackBar = false) => {
         try {
             const { data } = await entriesApi.put<Entry>(`/entries/${_id}`, { description, status });
-            dispatch({ type: 'Update - entry', payload: data })
+            dispatch({ type: 'Update - entry', payload: data });
+            if (showShackBar) {
+                enqueueSnackbar('Actualizado con exito', {
+                    variant: 'success',
+                    autoHideDuration: 1500,
+                    anchorOrigin: {
+                        vertical: 'top',
+                        horizontal: 'right'
+                    }
+                });
+            }
         } catch (error) {
             console.log({ error })
         }
