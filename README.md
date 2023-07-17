@@ -1,8 +1,19 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Next.js Openjira App
 
 First, run the development server:
+
+```
+docker-compose up -d
+```
+* -d means __detached__
+
+
+* MongoDB URL Local:
+```
+mongodb://localhost:27017/entriesdb
+```
 
 ```bash
 npm run dev
@@ -11,6 +22,13 @@ yarn dev
 # or
 pnpm dev
 ```
+
+## Configurar las variables de entorno
+Renombrar el archivo __.env.template__ a __.env__
+
+## Llenar la base de datos con informacion de pruebas
+Llamar a :
+```http://localhost:3000/api/seed```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
